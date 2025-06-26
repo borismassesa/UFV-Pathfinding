@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import { StatusBar, Alert, StyleSheet, View, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { initializeMapbox } from './config/mapbox';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import CustomTabBar from './components/CustomTabBar';
 
 // Import all screens
 import HomeScreen from './screens/HomeScreen';
@@ -126,13 +123,66 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <SafeAreaProvider>
-      <View style={styles.container}>
-        <NavigationContainer>
-          <StatusBar barStyle="dark-content" backgroundColor="#f5f5f5" />
+    <View style={styles.container}>
+      <NavigationContainer>
+        <StatusBar barStyle="dark-content" backgroundColor="#f5f5f5" />
         <Tab.Navigator
-          tabBar={(props) => <CustomTabBar {...props} />}
-          screenOptions={{
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName: keyof typeof Ionicons.glyphMap;
+
+              if (route.name === 'Home') {
+                iconName = focused ? 'home' : 'home-outline';
+              } else if (route.name === 'Navigate') {
+                iconName = focused ? 'navigate' : 'navigate-outline';
+              } else if (route.name === 'Map') {
+                iconName = focused ? 'map' : 'map-outline';
+              } else if (route.name === 'Favorites') {
+                iconName = focused ? 'heart' : 'heart-outline';
+              } else if (route.name === 'Profile') {
+                iconName = focused ? 'person' : 'person-outline';
+              } else {
+                iconName = 'help-outline';
+              }
+
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: '#2196F3',
+            tabBarInactiveTintColor: '#757575',
+            tabBarStyle: {
+              backgroundColor: 'red', // TEMPORARY DEBUG - should be clearly visible
+              borderTopWidth: 1,
+              borderTopColor: '#e0e0e0',
+              paddingBottom: Platform.OS === 'ios' ? 25 : 10,
+              paddingTop: 8,
+              height: Platform.OS === 'ios' ? 85 : 70,
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              marginHorizontal: 0,
+              marginLeft: 0,
+              marginRight: 0,
+              paddingHorizontal: 0,
+              paddingLeft: 0,
+              paddingRight: 0,
+              borderLeftWidth: 0,
+              borderRightWidth: 0,
+              borderBottomWidth: 0,
+              borderRadius: 0,
+              width: '100%',
+              elevation: 8,
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: -2 },
+              shadowOpacity: 0.1,
+              shadowRadius: 8,
+            },
+            tabBarLabelStyle: {
+              fontSize: 12,
+              fontWeight: '600',
+              marginBottom: 5,
+              marginTop: 2,
+            },
             headerStyle: {
               backgroundColor: '#ffffff',
               elevation: 4,
@@ -147,7 +197,7 @@ const App: React.FC = () => {
               color: '#1976D2',
             },
             headerTintColor: '#1976D2',
-          }}
+          })}
         >
         <Tab.Screen 
           name="Home" 
@@ -192,7 +242,6 @@ const App: React.FC = () => {
       </Tab.Navigator>
     </NavigationContainer>
     </View>
-    </SafeAreaProvider>
   );
 };
 
