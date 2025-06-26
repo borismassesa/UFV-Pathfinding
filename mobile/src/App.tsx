@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { StatusBar, Alert, StyleSheet, View, Platform, Dimensions } from 'react-native';
+import { StatusBar, Alert, StyleSheet, View, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
@@ -110,26 +110,22 @@ const ProfileStackScreen = () => (
 );
 
 const App: React.FC = () => {
-  const { width: screenWidth } = Dimensions.get('window');
-  
   useEffect(() => {
-    console.log('🏢 UFV Pathfinding App - Enhanced Version Started');
+    console.log('🏢 UFV Indoor Navigation initialized with real shapefile data');
+    console.log('🗺️ Using BuildingTRooms.shp coordinate system: EPSG:26910 (NAD83 / UTM zone 10N)');
     
     // Welcome alert
     setTimeout(() => {
       Alert.alert(
         '🎉 Welcome to UFV Pathfinding!',
-        'Navigate UFV Building T with your real indoor map data.\n\n✨ New Features:\n• Enhanced navigation\n• Proper back buttons\n• Detail screens\n• Better UI/UX\n• Quick access features',
+        'Navigate UFV Building T with your real indoor map data.\n\n✨ Features:\n• Enhanced navigation\n• Proper back buttons\n• Detail screens\n• Better UI/UX\n• Quick access features',
         [{ text: 'Let\'s Explore!' }]
       );
     }, 1000);
   }, []);
 
   return (
-    <SafeAreaProvider initialMetrics={{
-      frame: { x: 0, y: 0, width: screenWidth, height: 1000 },
-      insets: { top: 0, left: 0, right: 0, bottom: 0 },
-    }}>
+    <SafeAreaProvider>
       <View style={styles.container}>
         <NavigationContainer>
           <StatusBar barStyle="dark-content" backgroundColor="#f5f5f5" />
@@ -162,29 +158,17 @@ const App: React.FC = () => {
               left: 0,
               right: 0,
               height: Platform.OS === 'ios' ? 85 : 70,
-              backgroundColor: 'transparent', // Make background transparent
-              borderTopWidth: 0, // Remove border to eliminate constraints
-              elevation: 0, // Remove elevation constraints
-              shadowOpacity: 0, // Remove shadow constraints
+              backgroundColor: '#ffffff',
+              borderTopWidth: 1,
+              borderTopColor: '#e0e0e0',
               paddingBottom: Platform.OS === 'ios' ? 25 : 10,
               paddingTop: 8,
+              elevation: 8,
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: -2 },
+              shadowOpacity: 0.1,
+              shadowRadius: 4,
             },
-            tabBarBackground: () => (
-              <View style={{
-                position: 'absolute',
-                top: 0,
-                left: -50, // Ultra aggressive negative margin
-                right: -50, // Ultra aggressive negative margin  
-                bottom: 0,
-                width: screenWidth + 100, // Compensate for negative margins
-                backgroundColor: '#ff6b6b', // Bright red for maximum visibility
-                borderTopWidth: 1,
-                borderTopColor: '#e0e0e0',
-                // Force rendering outside all constraints
-                zIndex: 1000,
-                elevation: 1000,
-              }} />
-            ),
             tabBarLabelStyle: {
               fontSize: 12,
               fontWeight: '600',
@@ -247,9 +231,9 @@ const App: React.FC = () => {
             headerTitle: '👤 Settings & Profile'
           }}
         />
-      </Tab.Navigator>
-    </NavigationContainer>
-    </View>
+              </Tab.Navigator>
+        </NavigationContainer>
+      </View>
     </SafeAreaProvider>
   );
 };
@@ -258,21 +242,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    // Remove ALL constraints that could limit child components
-    margin: 0,
-    padding: 0,
-    paddingHorizontal: 0,
-    paddingVertical: 0,
-    marginHorizontal: 0,
-    marginVertical: 0,
-    paddingLeft: 0,
-    paddingRight: 0,
-    paddingTop: 0,
-    paddingBottom: 0,
-    marginLeft: 0,
-    marginRight: 0,
-    marginTop: 0,
-    marginBottom: 0,
   },
 });
 
