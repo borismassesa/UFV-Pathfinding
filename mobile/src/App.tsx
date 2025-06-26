@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StatusBar, Alert } from 'react-native';
+import { StatusBar, Alert, StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -123,9 +123,10 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <NavigationContainer>
-      <StatusBar barStyle="dark-content" backgroundColor="#f5f5f5" />
-      <Tab.Navigator
+    <View style={styles.container}>
+      <NavigationContainer>
+        <StatusBar barStyle="dark-content" backgroundColor="#f5f5f5" />
+        <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName: keyof typeof Ionicons.glyphMap;
@@ -152,14 +153,17 @@ const App: React.FC = () => {
             backgroundColor: '#ffffff',
             borderTopWidth: 1,
             borderTopColor: '#e0e0e0',
-            paddingBottom: 0,
+            paddingBottom: 25,
             paddingTop: 8,
             paddingLeft: 0,
             paddingRight: 0,
+            paddingHorizontal: 0,
             marginBottom: 0,
             marginLeft: 0,
             marginRight: 0,
-            height: 65,
+            marginHorizontal: 0,
+            height: 85,
+            minHeight: 85,
             elevation: 8,
             shadowColor: '#000',
             shadowOffset: { width: 0, height: -2 },
@@ -169,10 +173,17 @@ const App: React.FC = () => {
             bottom: 0,
             left: 0,
             right: 0,
+            width: '100%',
+            borderRadius: 0,
+            borderLeftWidth: 0,
+            borderRightWidth: 0,
+            borderBottomWidth: 0,
           },
           tabBarLabelStyle: {
             fontSize: 12,
             fontWeight: '600',
+            marginBottom: 5,
+            marginTop: 2,
           },
           headerStyle: {
             backgroundColor: '#ffffff',
@@ -232,7 +243,16 @@ const App: React.FC = () => {
         />
       </Tab.Navigator>
     </NavigationContainer>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    margin: 0,
+    padding: 0,
+  },
+});
 
 export default App; 
