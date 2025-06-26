@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Platform, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -11,6 +11,7 @@ interface CustomTabBarProps {
 
 const CustomTabBar: React.FC<CustomTabBarProps> = ({ state, descriptors, navigation }) => {
   const insets = useSafeAreaInsets();
+  const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
   const getIconName = (routeName: string, focused: boolean): keyof typeof Ionicons.glyphMap => {
     switch (routeName) {
@@ -52,6 +53,15 @@ const CustomTabBar: React.FC<CustomTabBarProps> = ({ state, descriptors, navigat
       {
         paddingBottom: Platform.OS === 'ios' ? insets.bottom : 15,
         height: Platform.OS === 'ios' ? 85 + insets.bottom : 70,
+        width: screenWidth,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        // Override any parent constraints
+        position: 'absolute',
+        zIndex: 1000,
+        elevation: 1000,
+        transform: [{ translateX: 0 }], // Force exact positioning
       }
     ]}>
       {state.routes.map((route: any, index: number) => {
@@ -106,14 +116,20 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#e0e0e0',
     paddingTop: 8,
+    // Force edge-to-edge with aggressive styling
+    marginHorizontal: 0,
+    marginVertical: 0,
+    marginLeft: 0,
+    marginRight: 0,
+    marginTop: 0,
+    marginBottom: 0,
     paddingHorizontal: 0,
-    margin: 0,
-    // Force edge-to-edge
-    width: '100%',
     borderLeftWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
     borderRadius: 0,
+    // Use exact positioning
+    alignSelf: 'stretch',
     // Shadow for iOS
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
@@ -121,6 +137,8 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     // Elevation for Android
     elevation: 8,
+    // Debug: temporary red background to see exact positioning
+    backgroundColor: '#ff0000', // Red background to see boundaries - REMOVE AFTER TESTING
   },
   tabItem: {
     flex: 1,
