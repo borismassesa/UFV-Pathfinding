@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { StatusBar, Alert, StyleSheet, View, Platform, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
@@ -125,9 +126,13 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <NavigationContainer>
-        <StatusBar barStyle="dark-content" backgroundColor="#f5f5f5" />
+    <SafeAreaProvider initialMetrics={{
+      frame: { x: 0, y: 0, width: screenWidth, height: 1000 },
+      insets: { top: 0, left: 0, right: 0, bottom: 0 },
+    }}>
+      <View style={styles.container}>
+        <NavigationContainer>
+          <StatusBar barStyle="dark-content" backgroundColor="#f5f5f5" />
         <Tab.Navigator
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
@@ -152,42 +157,34 @@ const App: React.FC = () => {
             tabBarActiveTintColor: '#2196F3',
             tabBarInactiveTintColor: '#757575',
             tabBarStyle: {
-              backgroundColor: '#e3f2fd', // Light blue debug color - easier to see than red
-              borderTopWidth: 1,
-              borderTopColor: '#e0e0e0',
-              paddingBottom: Platform.OS === 'ios' ? 25 : 10,
-              paddingTop: 8,
-              height: Platform.OS === 'ios' ? 85 : 70,
-              // Aggressive edge-to-edge positioning
               position: 'absolute',
               bottom: 0,
-              left: -20, // Force extend beyond left edge
-              right: -20, // Force extend beyond right edge
-              width: screenWidth + 40, // Exact screen width plus negative margin compensation
-              // Override ALL possible margin sources
-              marginHorizontal: 0,
-              marginLeft: 0,
-              marginRight: 0,
-              marginTop: 0,
-              marginBottom: 0,
-              margin: 0,
-              // Override ALL possible padding sources
-              paddingHorizontal: 20, // Compensate for negative left/right
-              paddingLeft: 20,
-              paddingRight: 20,
-              // Remove all borders except top
-              borderLeftWidth: 0,
-              borderRightWidth: 0,
-              borderBottomWidth: 0,
-              borderRadius: 0,
-              // High z-index to ensure visibility
-              zIndex: 1000,
-              elevation: 8,
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: -2 },
-              shadowOpacity: 0.1,
-              shadowRadius: 8,
+              left: 0,
+              right: 0,
+              height: Platform.OS === 'ios' ? 85 : 70,
+              backgroundColor: 'transparent', // Make background transparent
+              borderTopWidth: 0, // Remove border to eliminate constraints
+              elevation: 0, // Remove elevation constraints
+              shadowOpacity: 0, // Remove shadow constraints
+              paddingBottom: Platform.OS === 'ios' ? 25 : 10,
+              paddingTop: 8,
             },
+            tabBarBackground: () => (
+              <View style={{
+                position: 'absolute',
+                top: 0,
+                left: -50, // Ultra aggressive negative margin
+                right: -50, // Ultra aggressive negative margin  
+                bottom: 0,
+                width: screenWidth + 100, // Compensate for negative margins
+                backgroundColor: '#ff6b6b', // Bright red for maximum visibility
+                borderTopWidth: 1,
+                borderTopColor: '#e0e0e0',
+                // Force rendering outside all constraints
+                zIndex: 1000,
+                elevation: 1000,
+              }} />
+            ),
             tabBarLabelStyle: {
               fontSize: 12,
               fontWeight: '600',
@@ -253,6 +250,7 @@ const App: React.FC = () => {
       </Tab.Navigator>
     </NavigationContainer>
     </View>
+    </SafeAreaProvider>
   );
 };
 
