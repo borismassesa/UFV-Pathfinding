@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StatusBar, Alert, StyleSheet, View, Platform } from 'react-native';
+import { StatusBar, Alert, StyleSheet, View, Platform, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -109,6 +109,8 @@ const ProfileStackScreen = () => (
 );
 
 const App: React.FC = () => {
+  const { width: screenWidth } = Dimensions.get('window');
+  
   useEffect(() => {
     console.log('🏢 UFV Pathfinding App - Enhanced Version Started');
     
@@ -150,27 +152,36 @@ const App: React.FC = () => {
             tabBarActiveTintColor: '#2196F3',
             tabBarInactiveTintColor: '#757575',
             tabBarStyle: {
-              backgroundColor: 'red', // TEMPORARY DEBUG - should be clearly visible
+              backgroundColor: '#e3f2fd', // Light blue debug color - easier to see than red
               borderTopWidth: 1,
               borderTopColor: '#e0e0e0',
               paddingBottom: Platform.OS === 'ios' ? 25 : 10,
               paddingTop: 8,
               height: Platform.OS === 'ios' ? 85 : 70,
+              // Aggressive edge-to-edge positioning
               position: 'absolute',
               bottom: 0,
-              left: 0,
-              right: 0,
+              left: -20, // Force extend beyond left edge
+              right: -20, // Force extend beyond right edge
+              width: screenWidth + 40, // Exact screen width plus negative margin compensation
+              // Override ALL possible margin sources
               marginHorizontal: 0,
               marginLeft: 0,
               marginRight: 0,
-              paddingHorizontal: 0,
-              paddingLeft: 0,
-              paddingRight: 0,
+              marginTop: 0,
+              marginBottom: 0,
+              margin: 0,
+              // Override ALL possible padding sources
+              paddingHorizontal: 20, // Compensate for negative left/right
+              paddingLeft: 20,
+              paddingRight: 20,
+              // Remove all borders except top
               borderLeftWidth: 0,
               borderRightWidth: 0,
               borderBottomWidth: 0,
               borderRadius: 0,
-              width: '100%',
+              // High z-index to ensure visibility
+              zIndex: 1000,
               elevation: 8,
               shadowColor: '#000',
               shadowOffset: { width: 0, height: -2 },
@@ -248,16 +259,22 @@ const App: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f5f5f5',
+    // Remove ALL constraints that could limit child components
     margin: 0,
     padding: 0,
-    backgroundColor: '#f5f5f5',
-    // Force edge-to-edge layout with aggressive constraints
-    width: '100%',
-    height: '100%',
     paddingHorizontal: 0,
     paddingVertical: 0,
     marginHorizontal: 0,
     marginVertical: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
+    marginLeft: 0,
+    marginRight: 0,
+    marginTop: 0,
+    marginBottom: 0,
   },
 });
 
