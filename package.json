@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@rnmapbox/maps": "^10.1.39",
+    "react-native-maps": "^1.24.3"
+  }
+}

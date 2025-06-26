@@ -1,0 +1,66 @@
+# UFV Pathfinding Data Processing Configuration
+
+# Input data configuration
+input:
+  shapefiles_dir: "../data-processing/input"
+  building_rooms_file: "BuildingTRooms"
+  coordinate_system: "EPSG:4326"  # WGS84 - adjust as needed
+
+# Output configuration
+output:
+  processed_dir: "../data-processing/output"
+  geojson_dir: "../data-processing/output/geojson"
+  graph_dir: "../data-processing/output/graphs"
+  validation_dir: "../data-processing/output/validation"
+
+# Database configuration
+database:
+  host: "${DB_HOST:localhost}"
+  port: ${DB_PORT:5432}
+  name: "${DB_NAME:ufv_pathfinding}"
+  user: "${DB_USER:postgres}"
+  password: "${DB_PASSWORD}"
+  schema: "spatial"
+
+# Processing parameters
+processing:
+  # Room processing
+  min_room_area: 5.0  # Minimum room area in square meters
+  simplify_tolerance: 0.1  # Geometry simplification tolerance
+  buffer_distance: 0.5  # Buffer distance for connectivity analysis
+  
+  # Graph generation
+  node_types:
+    - "room_center"
+    - "doorway" 
+    - "hallway_intersection"
+    - "elevator"
+    - "stairway"
+    - "emergency_exit"
+  
+  # Connectivity rules
+  max_connection_distance: 50.0  # Maximum distance for automatic connections (meters)
+  accessibility_width_min: 1.2  # Minimum width for accessible paths (meters)
+  
+# Validation parameters
+validation:
+  geometry_checks:
+    - "is_valid"
+    - "is_simple"
+    - "no_self_intersection"
+  
+  connectivity_checks:
+    - "all_rooms_connected"
+    - "no_isolated_nodes"
+    - "accessibility_paths_exist"
+  
+  data_quality_thresholds:
+    min_rooms_per_building: 5
+    max_geometry_holes: 3
+    coordinate_precision: 6
+
+# Logging configuration
+logging:
+  level: "INFO"
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {name}:{function}:{line} | {message}"
+  file: "../data-processing/logs/processing.log" 

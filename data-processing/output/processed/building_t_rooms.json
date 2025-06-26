@@ -1,0 +1,342 @@
+[
+  {
+    "room_id": "T_1_R001",
+    "room_number": "T001",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 372.48,
+    "centroid_x": 552312.848251,
+    "centroid_y": 5430800.48876,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R002",
+    "room_number": "T002",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 9.05,
+    "centroid_x": 552297.100925,
+    "centroid_y": 5430796.951502,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R003",
+    "room_number": "T003",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 9.05,
+    "centroid_x": 552300.046514,
+    "centroid_y": 5430797.019896,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R004",
+    "room_number": "T004",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 9.05,
+    "centroid_x": 552302.992104,
+    "centroid_y": 5430797.08829,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R005",
+    "room_number": "T005",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 9.05,
+    "centroid_x": 552305.937694,
+    "centroid_y": 5430797.156684,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R006",
+    "room_number": "T006",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 9.06,
+    "centroid_x": 552308.881112,
+    "centroid_y": 5430797.225028,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R007",
+    "room_number": "T007",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 12.18,
+    "centroid_x": 552312.321022,
+    "centroid_y": 5430797.3049,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R008",
+    "room_number": "T008",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 11.92,
+    "centroid_x": 552312.435118,
+    "centroid_y": 5430792.525814,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R009",
+    "room_number": "T009",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 8.84,
+    "centroid_x": 552308.994252,
+    "centroid_y": 5430792.44592,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R010",
+    "room_number": "T010",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 8.84,
+    "centroid_x": 552306.048662,
+    "centroid_y": 5430792.377526,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R011",
+    "room_number": "T011",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 8.84,
+    "centroid_x": 552303.103072,
+    "centroid_y": 5430792.309132,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R012",
+    "room_number": "T012",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 8.84,
+    "centroid_x": 552300.157482,
+    "centroid_y": 5430792.240738,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R013",
+    "room_number": "T013",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 8.84,
+    "centroid_x": 552297.211893,
+    "centroid_y": 5430792.172344,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R014",
+    "room_number": "T014",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 6.65,
+    "centroid_x": 552315.697166,
+    "centroid_y": 5430792.527193,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R015",
+    "room_number": "T015",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 6.65,
+    "centroid_x": 552318.169693,
+    "centroid_y": 5430792.584603,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R016",
+    "room_number": "T016",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 4.54,
+    "centroid_x": 552320.085831,
+    "centroid_y": 5430792.703457,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R017",
+    "room_number": "T017",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 3.5,
+    "centroid_x": 552321.739033,
+    "centroid_y": 5430792.269121,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R018",
+    "room_number": "T018",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 10.12,
+    "centroid_x": 552316.090834,
+    "centroid_y": 5430797.39334,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R019",
+    "room_number": "T019",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 10.22,
+    "centroid_x": 552320.818767,
+    "centroid_y": 5430797.503119,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R020",
+    "room_number": "T020",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 12.19,
+    "centroid_x": 552316.003375,
+    "centroid_y": 5430801.160046,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R021",
+    "room_number": "T021",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 11.92,
+    "centroid_x": 552320.783441,
+    "centroid_y": 5430801.271035,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R022",
+    "room_number": "T022",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 9.04,
+    "centroid_x": 552315.923481,
+    "centroid_y": 5430804.600912,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R023",
+    "room_number": "T023",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 8.84,
+    "centroid_x": 552320.703547,
+    "centroid_y": 5430804.711901,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R024",
+    "room_number": "T024",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 9.04,
+    "centroid_x": 552315.855086,
+    "centroid_y": 5430807.546502,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R025",
+    "room_number": "T025",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 8.84,
+    "centroid_x": 552320.635153,
+    "centroid_y": 5430807.657491,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R026",
+    "room_number": "T026",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 8.84,
+    "centroid_x": 552320.566759,
+    "centroid_y": 5430810.603081,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R027",
+    "room_number": "T027",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 9.04,
+    "centroid_x": 552315.786692,
+    "centroid_y": 5430810.492091,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R028",
+    "room_number": "T028",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 8.84,
+    "centroid_x": 552320.498365,
+    "centroid_y": 5430813.54867,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R029",
+    "room_number": "T029",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 9.04,
+    "centroid_x": 552315.718298,
+    "centroid_y": 5430813.437681,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R030",
+    "room_number": "T030",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 9.04,
+    "centroid_x": 552315.649904,
+    "centroid_y": 5430816.383271,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R031",
+    "room_number": "T031",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 8.84,
+    "centroid_x": 552320.429971,
+    "centroid_y": 5430816.49426,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R032",
+    "room_number": "T032",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 35.53,
+    "centroid_x": 552309.652266,
+    "centroid_y": 5430794.708623,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R033",
+    "room_number": "T033",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 28.3,
+    "centroid_x": 552318.361519,
+    "centroid_y": 5430806.730978,
+    "is_accessible": true
+  },
+  {
+    "room_id": "T_1_R034",
+    "room_number": "T034",
+    "building_id": "T",
+    "floor_level": 1,
+    "area_sqm": 0.62,
+    "centroid_x": 552316.902046,
+    "centroid_y": 5430793.907512,
+    "is_accessible": true
+  }
+]
