@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: ufv-pathfinding-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ufv_pathfinding_db
+      POSTGRES_USER: ufv_pathfinding
+      POSTGRES_PASSWORD: secure_password_123
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-postgis.sql:/docker-entrypoint-initdb.d/01-init-postgis.sql
+    networks:
+      - ufv-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: ufv-pathfinding-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - ufv-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: ufv-pathfinding-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@ufv.ca
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - ufv-network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  ufv-network:
+    driver: bridge

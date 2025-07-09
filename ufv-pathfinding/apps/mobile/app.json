@@ -1,0 +1,60 @@
+{
+  "expo": {
+    "name": "UFV Pathfinding",
+    "slug": "ufv-pathfinding",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "scheme": "ufv-pathfinding",
+    "platforms": ["ios", "android"],
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1f4e3d"
+    },
+    "icon": "./assets/icon.png",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ufv.pathfinding",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app needs location access for indoor navigation and positioning.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "This app needs location access for indoor navigation and positioning.",
+        "NSBluetoothAlwaysUsageDescription": "This app uses Bluetooth for precise indoor positioning with beacons.",
+        "NSBluetoothPeripheralUsageDescription": "This app uses Bluetooth for precise indoor positioning with beacons."
+      }
+    },
+    "android": {
+      "package": "com.ufv.pathfinding",
+      "versionCode": 1,
+      "compileSdkVersion": 34,
+      "targetSdkVersion": 34,
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "BLUETOOTH",
+        "BLUETOOTH_ADMIN",
+        "BLUETOOTH_CONNECT",
+        "BLUETOOTH_SCAN"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1f4e3d"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "your-project-id-here"
+      }
+    }
+  }
+}

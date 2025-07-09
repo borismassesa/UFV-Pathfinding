@@ -1,0 +1,38 @@
+{
+  "name": "ufv-pathfinding",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "dev:mobile": "turbo dev --filter=ufv-pathfinding-mobile",
+    "dev:backend": "turbo dev --filter=backend",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "clean": "turbo clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "setup": "./setup-dev.sh",
+    "db:up": "docker compose up -d postgres redis",
+    "db:down": "docker compose down",
+    "db:reset": "docker compose down -v && docker compose up -d postgres redis"
+  },
+  "devDependencies": {
+    "@turbo/gen": "^2.5.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "turbo": "^2.5.0",
+    "typescript": "^5.3.3",
+    "@types/react": "~19.0.10"
+  },
+  "packageManager": "npm@10.2.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@expo/config-plugins": "^10.1.1"
+  }
+}
