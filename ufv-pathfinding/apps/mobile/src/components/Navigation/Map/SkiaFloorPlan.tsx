@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import {
   Canvas,
@@ -6,24 +6,8 @@ import {
   Circle,
   Group,
   Text,
-  useFont,
   Skia,
-  useSharedValueEffect,
-  useDerivedValue,
-  interpolate,
-  Extrapolate,
 } from '@shopify/react-native-skia';
-import {
-  Gesture,
-  GestureDetector,
-  GestureHandlerRootView,
-} from 'react-native-gesture-handler';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
-  runOnJS,
-} from 'react-native-reanimated';
 import { UFV_BUILDING_T_ROOMS, BUILDING_BOUNDS, UFVRoom } from '../../../data/ufvRoomData';
 
 interface SkiaFloorPlanProps {
@@ -99,43 +83,6 @@ const SkiaFloorPlan: React.FC<SkiaFloorPlanProps> = ({
   onRoomPress,
   userLocation,
 }) => {
-  // Gesture handling
-  const scale = useSharedValue(1);
-  const translationX = useSharedValue(0);
-  const translationY = useSharedValue(0);
-  const originX = useSharedValue(0);
-  const originY = useSharedValue(0);
-  
-  // Pan gesture
-  const panGesture = Gesture.Pan()
-    .onUpdate((e) => {
-      translationX.value = e.translationX;
-      translationY.value = e.translationY;
-    })
-    .onEnd(() => {
-      // Animate to final position
-      translationX.value = withSpring(0);
-      translationY.value = withSpring(0);
-    });
-
-  // Pinch gesture
-  const pinchGesture = Gesture.Pinch()
-    .onUpdate((e) => {
-      scale.value = Math.max(0.5, Math.min(e.scale, 5));
-      originX.value = e.focalX;
-      originY.value = e.focalY;
-    })
-    .onEnd(() => {
-      // Constrain scale
-      if (scale.value < 1) {
-        scale.value = withSpring(1);
-      } else if (scale.value > 3) {
-        scale.value = withSpring(3);
-      }
-    });
-
-  // Compose gestures
-  const composedGesture = Gesture.Simultaneous(panGesture, pinchGesture);
 
   // Generate room paths
   const roomPaths = useMemo(() => {
@@ -192,101 +139,88 @@ const SkiaFloorPlan: React.FC<SkiaFloorPlanProps> = ({
     }
   };
 
-  // Canvas transform
-  const canvasTransform = useDerivedValue(() => {
-    return [
-      { translateX: translationX.value },
-      { translateY: translationY.value },
-      { scale: scale.value },
-    ];
-  });
-
   return (
-    <GestureHandlerRootView style={styles.container}>
-      <GestureDetector gesture={composedGesture}>
-        <View style={styles.canvasContainer}>
-          <Canvas style={styles.canvas}>
-            <Group transform={canvasTransform}>
-              {/* Building outline */}
+    <View style={styles.container}>
+      <Canvas style={styles.canvas}>
+        <Group>
+          {/* Building outline */}
+          <Path
+            path={buildingPath}
+            style="stroke"
+            strokeWidth={2}
+            color="#374151"
+          />
+          
+          {/* Rooms */}
+          {roomPaths.map(({ room, path, color }) => (
+            <Group key={room.id}>
               <Path
-                path={buildingPath}
-                style="stroke"
-                strokeWidth={2}
-                color="#374151"
+                path={path}
+                style="fill"
+                color={color}
+                opacity={0.8}
               />
-              
-              {/* Rooms */}
-              {roomPaths.map(({ room, path, color }) => (
-                <Group key={room.id}>
+              <Path
+                path={path}
+                style="stroke"
+                strokeWidth={1}
+                color="#ffffff"
+              />
+            </Group>
+          ))}
+          
+          {/* Navigation path */}
+          {navigationPath && (
+            <Path
+              path={navigationPath}
+              style="stroke"
+              strokeWidth={4}
+              color="#10B981"
+              strokeCap="round"
+              strokeJoin="round"
+              opacity={0.9}
+            />
+          )}
+          
+          {/* User location */}
+          {userLocationScreen && (
+            <Group>
+              <Circle
+                cx={userLocationScreen.x}
+                cy={userLocationScreen.y}
+                r={8}
+                color="#2563EB"
+                opacity={0.3}
+              />
+              <Circle
+                cx={userLocationScreen.x}
+                cy={userLocationScreen.y}
+                r={4}
+                color="#2563EB"
+              />
+            </Group>
+          )}
+          
+          {/* Selected room highlight */}
+          {selectedRoom && (
+            <Group>
+              {roomPaths
+                .filter(({ room }) => room.id === selectedRoom.id)
+                .map(({ room, path }) => (
                   <Path
-                    path={path}
-                    style="fill"
-                    color={color}
-                    opacity={0.8}
-                  />
-                  <Path
+                    key={`highlight-${room.id}`}
                     path={path}
                     style="stroke"
-                    strokeWidth={1}
-                    color="#ffffff"
+                    strokeWidth={3}
+                    color="#10B981"
+                    opacity={0.8}
                   />
-                </Group>
-              ))}
-              
-              {/* Navigation path */}
-              {navigationPath && (
-                <Path
-                  path={navigationPath}
-                  style="stroke"
-                  strokeWidth={4}
-                  color="#10B981"
-                  strokeCap="round"
-                  strokeJoin="round"
-                  opacity={0.9}
-                />
-              )}
-              
-              {/* User location */}
-              {userLocationScreen && (
-                <Group>
-                  <Circle
-                    cx={userLocationScreen.x}
-                    cy={userLocationScreen.y}
-                    r={8}
-                    color="#2563EB"
-                    opacity={0.3}
-                  />
-                  <Circle
-                    cx={userLocationScreen.x}
-                    cy={userLocationScreen.y}
-                    r={4}
-                    color="#2563EB"
-                  />
-                </Group>
-              )}
-              
-              {/* Selected room highlight */}
-              {selectedRoom && (
-                <Group>
-                  {roomPaths
-                    .filter(({ room }) => room.id === selectedRoom.id)
-                    .map(({ room, path }) => (
-                      <Path
-                        key={`highlight-${room.id}`}
-                        path={path}
-                        style="stroke"
-                        strokeWidth={3}
-                        color="#10B981"
-                        opacity={0.8}
-                      />
-                    ))}
-                </Group>
-              )}
+                ))}
             </Group>
-          </Canvas>
-        </View>
-      </GestureDetector>
-    </GestureHandlerRootView>
+          )}
+        </Group>
+      </Canvas>
+    </View>
   );
 };
 
@@ -294,9 +228,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F9FAFB',
-  },
-  canvasContainer: {
-    flex: 1,
   },
   canvas: {
     flex: 1,
